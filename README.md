@@ -1,7 +1,3 @@
-Here is a `README.md` file for your GitHub repository:
-
----
-
 # Workout Tracker using AWS Serverless services (Lambda, API gateway, DynamoDB and Amplify)
 
 ## Overview
