@@ -1,78 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>To the Power of Math!</title>
-    <!-- Styling for the client UI -->
-    <style>
-    h1 {
-        color: #FFFFFF;
-        font-family: system-ui;
-		margin-left: 20px;
-        }
-	body {
-        background-color: #222629;
-        }
-    label {
-        color: #86C232;
-        font-family: system-ui;
-        font-size: 20px;
-        margin-left: 20px;
-		margin-top: 20px;
-        }
-     button {
-        background-color: #86C232;
-		border-color: #86C232;
-		color: #FFFFFF;
-        font-family: system-ui;
-        font-size: 20px;
-		font-weight: bold;
-        margin-left: 30px;
-		margin-top: 20px;
-		width: 140px;
-        }
-	 input {
-        color: #222629;
-        font-family: system-ui;
-        font-size: 20px;
-        margin-left: 10px;
-		margin-top: 20px;
-		width: 100px;
-        }
-    </style>
-    <script>
-        // callAPI function that takes the base and exponent numbers as parameters
-        var callAPI = (base,exponent)=>{
-            // instantiate a headers object
-            var myHeaders = new Headers();
-            // add content type header to object
-            myHeaders.append("Content-Type", "application/json");
-            // using built in JSON utility package turn object to string and store in a variable
-            var raw = JSON.stringify({"base":base,"exponent":exponent});
-            // create a JSON object with parameters for API call and store in a variable
-            var requestOptions = {
-                method: 'POST',
-                headers: myHeaders,
-                body: raw,
-                redirect: 'follow'
-            };
-            // make API call with parameters and use promises to get response
-            fetch("https://0dxu2ajsv9.execute-api.us-east-1.amazonaws.com/dev", requestOptions)
-            .then(response => response.text())
-            .then(result => alert(JSON.parse(result).body))
-            .catch(error => console.log('error', error));
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Tracker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>TO THE POWER OF MATH!</h1>
-	<form>
-        <label>Base number:</label>
-        <input type="text" id="base">
-        <label>...to the power of:</label>
-        <input type="text" id="exponent">
-        <!-- set button onClick method to call function we defined passing input values as parameters -->
-        <button type="button" onclick="callAPI(document.getElementById('base').value,document.getElementById('exponent').value)">CALCULATE</button>
+
+    <h1>Workout Tracker</h1>
+    <h2>Log Your Workout for the day!</h2>
+    <form id="workout-form">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+    
+        <label for="workout-day">Workout Day:</label>
+        <select id="workout-day" name="workout-day" required>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+        </select>
+    
+        <label for="hours">Hours Worked Out:</label>
+        <input type="number" id="hours" name="hours" min="0" max="24" required>
+    
+        <label for="workout-date">Workout Date:</label>
+        <input type="date" id="workout-date" name="workout-date" required>
+    
+        <button type="submit">Submit</button>
     </form>
+    
+
+    <h2>Weekly Workout Chart</h2>
+    <canvas id="workout-chart" width="400" height="200"></canvas>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Link to your external JavaScript file -->
+    <script src="script.js"></script>
+
 </body>
 </html>
