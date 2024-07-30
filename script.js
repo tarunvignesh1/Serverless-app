@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function loadChartData() {
         try {
-            const response = await fetch('https://xq1d1r8fth.execute-api.us-east-1.amazonaws.com/dev/get', {
+            const response = await fetch('https://xq1d1r8fth.execute-api.us-east-1.amazonaws.com/dev/', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
