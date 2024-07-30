@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const form = document.getElementById('workout-form');
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
-        
+
         const username = document.getElementById('username').value;
         const workoutDay = document.getElementById('workout-day').value;
         const hours = document.getElementById('hours').value;
@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         const data = {
             username,
             workoutDay,
-            hours,
+            hours: parseInt(hours, 10), // Ensure hours is a number
             workoutDate
         };
 
         try {
-            const response = await fetch('https://your-api-gateway-endpoint.amazonaws.com/your-resource', {
+            const response = await fetch('https://xq1d1r8fth.execute-api.us-east-1.amazonaws.com/dev/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 alert('Workout logged successfully!');
                 loadChartData(); // Refresh the chart data after logging the workout
             } else {
-                alert('Error logging workout. Please try again.');
+                const errorText = await response.text();
+                alert(`Error logging workout: ${errorText}`);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     async function loadChartData() {
         try {
-            const response = await fetch('https://your-api-gateway-endpoint.amazonaws.com/your-get-resource', {
+            const response = await fetch('https://xq1d1r8fth.execute-api.us-east-1.amazonaws.com/dev/get', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +51,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const chartData = formatChartData(data);
                 renderChart(chartData);
             } else {
-                alert('Error fetching chart data.');
+                const errorText = await response.text();
+                alert(`Error fetching chart data: ${errorText}`);
             }
         } catch (error) {
             console.error('Error:', error);
